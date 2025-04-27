@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Load_factjobs"
   DTS:PackageType="5"
-  DTS:VersionBuild="89"
-  DTS:VersionGUID="{09856F9E-5557-46C3-8E85-7716EC50EFC9}">
+  DTS:VersionBuild="114"
+  DTS:VersionGUID="{37C03A3B-6AF4-44BE-ACA9-8B14407492E1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1323,19 +1323,17 @@
                       cachedName="Salary Range"
                       lineageId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Salary Range]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input].Columns[Job ID]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Job ID"
-                      lineageId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Job ID]" />
-                    <inputColumn
                       refId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input].Columns[Company Rating]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="Company Rating"
                       lineageId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Company Rating]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input].Columns[Derived Column 1]"
+                      cachedDataType="i4"
+                      cachedName="Derived Column 1"
+                      lineageId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output].Columns[Derived Column 1]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1474,20 +1472,19 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]"
-                      dataType="numeric"
+                      refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Derived Column 1]"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]"
-                      name="Copy of Job ID"
-                      precision="18"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Derived Column 1]"
+                      name="Copy of Derived Column 1"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Job ID]}</property>
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output].Columns[Derived Column 1]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indicates whether the column uses the faster, locale-neutral parsing routines."
@@ -2009,6 +2006,105 @@
                       refId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Derived Column 3"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column 3"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input].Columns[Copy of Company]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Company"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company]}) ? "1" : #{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL([Copy of Company]) ? "1" : [Copy of Company]</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input].Columns[CompanyID]"
+                      cachedDataType="i4"
+                      cachedName="CompanyID"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="RedirectRow"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[CompanyID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[CompanyID]}) ? (DT_I4)1 : #{Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[CompanyID]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(CompanyID) ? (DT_I4)1 : CompanyID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2592,7 +2688,7 @@ where [refTable].[CompanyName] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Company]};</property>
+                  name="ParameterMap">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -2616,12 +2712,12 @@ where [refTable].[CompanyName] = ?</property>
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\Lookup.Inputs[Lookup Input].Columns[Company]"
+                      refId="Package\Data Flow Task\Lookup.Inputs[Lookup Input].Columns[Copy of Company]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
-                      cachedName="Company"
-                      lineageId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Company]">
+                      cachedName="Copy of Company"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -2641,7 +2737,7 @@ where [refTable].[CompanyName] = ?</property>
                 <output
                   refId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="IgnoreFailure"
+                  errorRowDisposition="RedirectRow"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]">
@@ -3413,13 +3509,6 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 1]"
-                  deleteOutputOnPathDetached="true"
-                  name="Multicast Output 1"
-                  synchronousInputId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]">
-                  <externalMetadataColumns />
-                </output>
-                <output
                   refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 3]"
                   deleteOutputOnPathDetached="true"
                   name="Multicast Output 3"
@@ -3444,6 +3533,13 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                   refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 6]"
                   deleteOutputOnPathDetached="true"
                   name="Multicast Output 6"
+                  synchronousInputId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
                   synchronousInputId="Package\Data Flow Task\Multicast.Inputs[Multicast Input 1]">
                   <externalMetadataColumns />
                 </output>
@@ -3534,6 +3630,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="Copy of Job Title"
+                      cachedSortKeyPosition="21"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[JobTitle]"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job Title]" />
                     <inputColumn
@@ -3541,26 +3638,21 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="Copy of Salary Range"
+                      cachedSortKeyPosition="23"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SalaryRange]"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Salary Range]" />
                     <inputColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Avg Salary]"
                       cachedDataType="r4"
                       cachedName="Copy of Avg Salary"
+                      cachedSortKeyPosition="22"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AvgSalary]"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Avg Salary]" />
-                    <inputColumn
-                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CompanyID]"
-                      cachedDataType="i4"
-                      cachedName="CompanyID"
-                      cachedSortKeyPosition="5"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompanyKey]"
-                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[CompanyID]" />
                     <inputColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Company Rating]"
                       cachedDataType="r4"
                       cachedName="Copy of Company Rating"
-                      cachedSortKeyPosition="6"
+                      cachedSortKeyPosition="25"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompanyRating]"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company Rating]" />
                     <inputColumn
@@ -3568,9 +3660,16 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       cachedDataType="numeric"
                       cachedName="Copy of Job ID"
                       cachedPrecision="18"
-                      cachedSortKeyPosition="3"
+                      cachedSortKeyPosition="27"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[JobID]"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job ID]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CompanyID]"
+                      cachedDataType="i4"
+                      cachedName="CompanyID"
+                      cachedSortKeyPosition="26"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompanyKey]"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[CompanyID]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -4659,7 +4758,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       cachedDataType="numeric"
                       cachedName="Copy of Job ID"
                       cachedPrecision="18"
-                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]">
+                      lineageId="Package\Data Flow Task\31:invalid">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -5066,7 +5165,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]}</property>
+                          name="SortColumnId">#{Package\Data Flow Task\31:invalid}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
@@ -5156,7 +5255,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">1</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5174,7 +5273,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">2</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5192,7 +5291,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">3</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5210,7 +5309,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">4</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5228,7 +5327,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">5</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5246,7 +5345,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">1</property>
+                          name="NewSortKeyPosition">6</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5264,7 +5363,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">2</property>
+                          name="NewSortKeyPosition">7</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5282,7 +5381,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">8</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5300,7 +5399,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">9</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5318,7 +5417,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">10</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5336,7 +5435,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">11</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5354,7 +5453,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">12</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5372,7 +5471,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">13</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5390,7 +5489,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">14</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5408,7 +5507,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">15</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5426,7 +5525,23 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">16</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[Derived Column 1]"
+                      cachedDataType="i4"
+                      cachedName="Derived Column 1"
+                      lineageId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output].Columns[Derived Column 1]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">17</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5444,7 +5559,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">4</property>
+                          name="NewSortKeyPosition">18</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5461,7 +5576,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">19</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5478,7 +5593,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">20</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5495,7 +5610,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">21</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5511,7 +5626,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">22</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5528,31 +5643,14 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
+                          name="NewSortKeyPosition">23</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[Copy of Job ID]"
-                      cachedDataType="numeric"
-                      cachedName="Copy of Job ID"
-                      cachedPrecision="18"
-                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the comparison options for character data."
-                          name="NewComparisonFlags">0</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">3</property>
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[CompanyID]"
+                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[Copy of Derived Column 1]"
                       cachedDataType="i4"
-                      cachedName="CompanyID"
-                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[CompanyID]">
+                      cachedName="Copy of Derived Column 1"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Derived Column 1]">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -5561,7 +5659,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">5</property>
+                          name="NewSortKeyPosition">24</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -5577,7 +5675,40 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                         <property
                           dataType="System.Int32"
                           description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">6</property>
+                          name="NewSortKeyPosition">25</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[CompanyID]"
+                      cachedDataType="i4"
+                      cachedName="CompanyID"
+                      lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[CompanyID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">26</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[Copy of Job ID]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of Job ID"
+                      cachedPrecision="18"
+                      lineageId="Package\Data Flow Task\31:invalid">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">27</property>
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -5596,7 +5727,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Job Title]"
-                      name="Job Title">
+                      name="Job Title"
+                      sortKeyPosition="1">
                       <properties>
                         <property
                           containsID="true"
@@ -5611,7 +5743,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Company]"
-                      name="Company">
+                      name="Company"
+                      sortKeyPosition="2">
                       <properties>
                         <property
                           containsID="true"
@@ -5626,7 +5759,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Location]"
-                      name="Location">
+                      name="Location"
+                      sortKeyPosition="3">
                       <properties>
                         <property
                           containsID="true"
@@ -5641,7 +5775,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Remote Type]"
-                      name="Remote Type">
+                      name="Remote Type"
+                      sortKeyPosition="4">
                       <properties>
                         <property
                           containsID="true"
@@ -5656,7 +5791,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Date Posted]"
-                      name="Date Posted">
+                      name="Date Posted"
+                      sortKeyPosition="5">
                       <properties>
                         <property
                           containsID="true"
@@ -5672,7 +5808,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Company Size]"
                       name="Company Size"
-                      sortKeyPosition="1">
+                      sortKeyPosition="6">
                       <properties>
                         <property
                           containsID="true"
@@ -5688,7 +5824,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Industry]"
                       name="Industry"
-                      sortKeyPosition="2">
+                      sortKeyPosition="7">
                       <properties>
                         <property
                           containsID="true"
@@ -5703,7 +5839,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Employment Type]"
-                      name="Employment Type">
+                      name="Employment Type"
+                      sortKeyPosition="8">
                       <properties>
                         <property
                           containsID="true"
@@ -5718,7 +5855,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Experience Required]"
-                      name="Experience Required">
+                      name="Experience Required"
+                      sortKeyPosition="9">
                       <properties>
                         <property
                           containsID="true"
@@ -5733,7 +5871,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Salary Range]"
-                      name="Salary Range">
+                      name="Salary Range"
+                      sortKeyPosition="10">
                       <properties>
                         <property
                           containsID="true"
@@ -5748,7 +5887,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Required Skills]"
-                      name="Required Skills">
+                      name="Required Skills"
+                      sortKeyPosition="11">
                       <properties>
                         <property
                           containsID="true"
@@ -5763,7 +5903,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Qualifications]"
-                      name="Qualifications">
+                      name="Qualifications"
+                      sortKeyPosition="12">
                       <properties>
                         <property
                           containsID="true"
@@ -5778,7 +5919,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Application Link]"
-                      name="Application Link">
+                      name="Application Link"
+                      sortKeyPosition="13">
                       <properties>
                         <property
                           containsID="true"
@@ -5793,7 +5935,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Company Rating]"
-                      name="Company Rating">
+                      name="Company Rating"
+                      sortKeyPosition="14">
                       <properties>
                         <property
                           containsID="true"
@@ -5808,7 +5951,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Avg Salary]"
-                      name="Avg Salary">
+                      name="Avg Salary"
+                      sortKeyPosition="15">
                       <properties>
                         <property
                           containsID="true"
@@ -5823,7 +5967,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Job ID]"
-                      name="Job ID">
+                      name="Job ID"
+                      sortKeyPosition="16">
                       <properties>
                         <property
                           containsID="true"
@@ -5833,13 +5978,27 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       </properties>
                     </outputColumn>
                     <outputColumn
+                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Derived Column 1]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Derived Column 1]"
+                      name="Derived Column 1"
+                      sortKeyPosition="17">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output].Columns[Derived Column 1]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
                       refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company]"
                       codePage="1252"
                       dataType="str"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company]"
                       name="Copy of Company"
-                      sortKeyPosition="4">
+                      sortKeyPosition="18">
                       <properties>
                         <property
                           containsID="true"
@@ -5853,7 +6012,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="wstr"
                       length="255"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Qualifications]"
-                      name="Copy of Qualifications">
+                      name="Copy of Qualifications"
+                      sortKeyPosition="19">
                       <properties>
                         <property
                           containsID="true"
@@ -5867,7 +6027,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="wstr"
                       length="255"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Required Skills]"
-                      name="Copy of Required Skills">
+                      name="Copy of Required Skills"
+                      sortKeyPosition="20">
                       <properties>
                         <property
                           containsID="true"
@@ -5881,7 +6042,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="wstr"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job Title]"
-                      name="Copy of Job Title">
+                      name="Copy of Job Title"
+                      sortKeyPosition="21">
                       <properties>
                         <property
                           containsID="true"
@@ -5894,7 +6056,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Avg Salary]"
                       dataType="r4"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Avg Salary]"
-                      name="Copy of Avg Salary">
+                      name="Copy of Avg Salary"
+                      sortKeyPosition="22">
                       <properties>
                         <property
                           containsID="true"
@@ -5908,7 +6071,8 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="wstr"
                       length="50"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Salary Range]"
-                      name="Copy of Salary Range">
+                      name="Copy of Salary Range"
+                      sortKeyPosition="23">
                       <properties>
                         <property
                           containsID="true"
@@ -5918,18 +6082,31 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job ID]"
-                      dataType="numeric"
-                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job ID]"
-                      name="Copy of Job ID"
-                      precision="18"
-                      sortKeyPosition="3">
+                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Derived Column 1]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Derived Column 1]"
+                      name="Copy of Derived Column 1"
+                      sortKeyPosition="24">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]}</property>
+                          name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Derived Column 1]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company Rating]"
+                      dataType="r4"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company Rating]"
+                      name="Copy of Company Rating"
+                      sortKeyPosition="25">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company Rating]}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
@@ -5937,7 +6114,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       dataType="i4"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[CompanyID]"
                       name="CompanyID"
-                      sortKeyPosition="5">
+                      sortKeyPosition="26">
                       <properties>
                         <property
                           containsID="true"
@@ -5947,17 +6124,18 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company Rating]"
-                      dataType="r4"
-                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Company Rating]"
-                      name="Copy of Company Rating"
-                      sortKeyPosition="6">
+                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job ID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of Job ID]"
+                      name="Copy of Job ID"
+                      precision="18"
+                      sortKeyPosition="27">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Company Rating]}</property>
+                          name="SortColumnId">#{Package\Data Flow Task\31:invalid}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -6383,7 +6561,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                       cachedDataType="numeric"
                       cachedName="Copy of Job ID"
                       cachedPrecision="18"
-                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]">
+                      lineageId="Package\Data Flow Task\31:invalid">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -6772,7 +6950,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Job ID]}</property>
+                          name="SortColumnId">#{Package\Data Flow Task\31:invalid}</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
@@ -6815,15 +6993,20 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               name="Data Conversion Output"
               startId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output]" />
             <path
-              refId="Package\Data Flow Task.Paths[Data Conversion Output2]"
+              refId="Package\Data Flow Task.Paths[Data Conversion Output1]"
               endId="Package\Data Flow Task\Lookup 2.Inputs[Lookup Input]"
               name="Data Conversion Output"
               startId="Package\Data Flow Task\Data Conversion 1.Outputs[Data Conversion Output]" />
             <path
-              refId="Package\Data Flow Task.Paths[Data Conversion Output1]"
+              refId="Package\Data Flow Task.Paths[Data Conversion Output2]"
               endId="Package\Data Flow Task\Lookup 3.Inputs[Lookup Input]"
               name="Data Conversion Output"
               startId="Package\Data Flow Task\Data Conversion 2.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Derived Column Output]"
+              endId="Package\Data Flow Task\Lookup 1.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Derived Column Output1]"
               endId="Package\Data Flow Task\Data Conversion 1.Inputs[Data Conversion Input]"
@@ -6835,15 +7018,30 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               name="Derived Column Output"
               startId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output]" />
             <path
-              refId="Package\Data Flow Task.Paths[Derived Column Output]"
-              endId="Package\Data Flow Task\Lookup 1.Inputs[Lookup Input]"
+              refId="Package\Data Flow Task.Paths[Derived Column Output3]"
+              endId="Package\Data Flow Task\Sort 1.Inputs[Sort Input]"
               name="Derived Column Output"
-              startId="Package\Data Flow Task\Derived Column.Outputs[Derived Column Output]" />
+              startId="Package\Data Flow Task\Derived Column 3.Outputs[Derived Column Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Flat File Source Output]"
               endId="Package\Data Flow Task\Derived Column 2.Inputs[Derived Column Input]"
               name="Flat File Source Output"
               startId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup Match Output4]"
+              endId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup Match Output3]"
+              endId="Package\Data Flow Task\OLE DB Destination 4.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\Data Flow Task\Lookup 4.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Lookup Match Output1]"
+              endId="Package\Data Flow Task\Sort.Inputs[Sort Input]"
+              name="Lookup Match Output"
+              startId="Package\Data Flow Task\Lookup 1.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output]"
               endId="Package\Data Flow Task\OLE DB Destination 3.Inputs[OLE DB Destination Input]"
@@ -6851,24 +7049,9 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               startId="Package\Data Flow Task\Lookup 3.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output2]"
-              endId="Package\Data Flow Task\Sort.Inputs[Sort Input]"
-              name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 1.Outputs[Lookup Match Output]" />
-            <path
-              refId="Package\Data Flow Task.Paths[Lookup Match Output3]"
-              endId="Package\Data Flow Task\Sort 1.Inputs[Sort Input]"
-              name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
-            <path
-              refId="Package\Data Flow Task.Paths[Lookup Match Output4]"
               endId="Package\Data Flow Task\Sort 2.Inputs[Sort Input]"
               name="Lookup Match Output"
               startId="Package\Data Flow Task\Lookup 2.Outputs[Lookup Match Output]" />
-            <path
-              refId="Package\Data Flow Task.Paths[Lookup Match Output1]"
-              endId="Package\Data Flow Task\OLE DB Destination 4.Inputs[OLE DB Destination Input]"
-              name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 4.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Multicast Output 1]"
               endId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]"
@@ -7004,129 +7187,57 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="154.666666666667,42.6666666666667"
-          Id="Package\Data Flow Task\Flat File Source"
-          TopLeft="529.964264951115,31.2894740598353" />
-        <NodeLayout
-          Size="158.666666666667,42.6666666666667"
-          Id="Package\Data Flow Task\Data Conversion"
-          TopLeft="530.380930258051,122.166665715084" />
-        <NodeLayout
           Size="114.666666666667,42.6666666666667"
           Id="Package\Data Flow Task\Lookup"
           TopLeft="543.297597688402,312.710524941002" />
         <NodeLayout
-          Size="121.333333333334,42.6666666666667"
-          Id="Package\Data Flow Task\Multicast"
-          TopLeft="542.255928386092,203.710525274057" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
-          TopLeft="606.318429322071,164.83333238175">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,38.8771928923062"
-              Start="0,0"
-              End="0,31.3771928923062">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,31.3771928923062" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Multicast Output 1]"
-          TopLeft="601.776763037247,246.377191940723">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,66.3333330002793"
-              Start="0,0"
-              End="0,58.8333330002793">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,58.8333330002793" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="184,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Destination 1"
+          TopLeft="238.833322902521,580.236835794766" />
+        <NodeLayout
+          Size="124,42.6666666666667"
+          Id="Package\Data Flow Task\Lookup 4"
+          TopLeft="309.964272103672,178.107709487125" />
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Destination"
+          TopLeft="490.180437620115,581.169728789155" />
         <NodeLayout
           Size="156,42.6666666666667"
           Id="Package\Data Flow Task\Derived Column"
           TopLeft="711.005923524589,311.833331763221" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Multicast Output 3]"
-          TopLeft="631.255928386092,246.377191940723">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="157.749995138497,65.4561398224983"
-              Start="0,0"
-              End="157.749995138497,57.9561398224983">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,18.7571525547754" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.7571525547754"
-                    Point2="0,22.7571525547754"
-                    Point3="4,22.7571525547754" />
-                  <mssgle:LineSegment
-                    End="153.749995138497,22.7571525547754" />
-                  <mssgle:CubicBezierSegment
-                    Point1="153.749995138497,22.7571525547754"
-                    Point2="157.749995138497,22.7571525547754"
-                    Point3="157.749995138497,26.7571525547754" />
-                  <mssgle:LineSegment
-                    End="157.749995138497,57.9561398224983" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Data Flow Task\Flat File Source"
+          TopLeft="529.964264951115,31.2894740598353" />
+        <NodeLayout
+          Size="165.333333333334,42.6666666666667"
+          Id="Package\Data Flow Task\Derived Column 3"
+          TopLeft="510.234456644396,392.467401289089" />
+        <NodeLayout
+          Size="121.333333333334,42.6666666666667"
+          Id="Package\Data Flow Task\Multicast"
+          TopLeft="542.255928386092,203.710525274057" />
         <NodeLayout
           Size="124,42.6666666666667"
           Id="Package\Data Flow Task\Lookup 1"
           TopLeft="726.630924167201,394.745612454959" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Derived Column Output]"
-          TopLeft="788.818423845895,354.499998429888">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40.2456140250711"
-              Start="0,0"
-              End="0,32.7456140250711">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.7456140250711" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="184,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Destination 2"
+          TopLeft="785.499966472388,526.991222673699" />
+        <NodeLayout
+          Size="98.6666666666667,42.6666666666667"
+          Id="Package\Data Flow Task\Sort"
+          TopLeft="942.999958090485,443.073098551267" />
+        <NodeLayout
+          Size="184,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Destination 4"
+          TopLeft="66.3333346371849,288.219296129594" />
+        <NodeLayout
+          Size="165.333333333334,42.6666666666667"
+          Id="Package\Data Flow Task\Derived Column 2"
+          TopLeft="254.458322204029,37.3692737715725" />
         <NodeLayout
           Size="124,42.6666666666667"
           Id="Package\Data Flow Task\Lookup 2"
@@ -7135,332 +7246,50 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
           Size="168,42.6666666666667"
           Id="Package\Data Flow Task\Data Conversion 2"
           TopLeft="770.38091818811,136.114033873199" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Multicast Output 5]"
-          TopLeft="621.811483941648,203.710525274057">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="232.569434246462,-24.9298247341907"
-              Start="0,0"
-              End="232.569434246462,-17.4298247341907">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,-6.16660965298883" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,-6.16660965298883"
-                    Point2="0,-10.1666096529888"
-                    Point3="4,-10.1666096529888" />
-                  <mssgle:LineSegment
-                    End="228.569434246462,-10.1666096529888" />
-                  <mssgle:CubicBezierSegment
-                    Point1="228.569434246462,-10.1666096529888"
-                    Point2="232.569434246462,-10.1666096529888"
-                    Point3="232.569434246462,-14.1666096529888" />
-                  <mssgle:LineSegment
-                    End="232.569434246462,-17.4298247341907" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="124,42.6666666666667"
           Id="Package\Data Flow Task\Lookup 3"
           TopLeft="931.547577404197,215.526313423037" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Data Conversion Output1]"
-          TopLeft="881.047584854776,178.780700539866">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="112.49999254942,36.7456128831714"
-              Start="0,0"
-              End="112.49999254942,29.2456128831714">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.9062391884563" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.9062391884563"
-                    Point2="0,14.9062391884563"
-                    Point3="4,14.9062391884563" />
-                  <mssgle:LineSegment
-                    End="108.49999254942,14.9062391884563" />
-                  <mssgle:CubicBezierSegment
-                    Point1="108.49999254942,14.9062391884563"
-                    Point2="112.49999254942,14.9062391884563"
-                    Point3="112.49999254942,18.9062391884563" />
-                  <mssgle:LineSegment
-                    End="112.49999254942,29.2456128831714" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="168,42.6666666666667"
-          Id="Package\Data Flow Task\Data Conversion 1"
-          TopLeft="312.255938667893,317.114033064353" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Data Conversion Output2]"
-          TopLeft="393.172604980657,359.78069973102">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,46.4210526415957"
-              Start="0,0"
-              End="0,38.9210526415957">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,38.9210526415957" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="124,42.6666666666667"
-          Id="Package\Data Flow Task\Lookup 4"
-          TopLeft="309.964272103672,178.107709487125" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Multicast Output 2]"
-          TopLeft="542.255928386092,225.04385860739">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-108.29165628242,-25.6028157869312"
-              Start="0,0"
-              End="-100.79165628242,-25.6028157869312">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-50.1458281412101,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-50.1458281412101,0"
-                    Point2="-54.1458281412101,0"
-                    Point3="-54.1458281412101,-4" />
-                  <mssgle:LineSegment
-                    End="-54.1458281412101,-21.6028157869312" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-54.1458281412101,-21.6028157869312"
-                    Point2="-54.1458281412101,-25.6028157869312"
-                    Point3="-58.1458281412101,-25.6028157869312" />
-                  <mssgle:LineSegment
-                    End="-100.79165628242,-25.6028157869312" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\Data Flow Task\OLE DB Destination"
-          TopLeft="510.716150987811,541.094541259248" />
-        <NodeLayout
-          Size="184,42.6666666666667"
-          Id="Package\Data Flow Task\OLE DB Destination 1"
-          TopLeft="238.833322902521,580.236835794766" />
-        <NodeLayout
-          Size="184,42.6666666666667"
-          Id="Package\Data Flow Task\OLE DB Destination 2"
-          TopLeft="785.499966472388,526.991222673699" />
         <NodeLayout
           Size="184,42.6666666666667"
           Id="Package\Data Flow Task\OLE DB Destination 3"
           TopLeft="932.166627923649,349.447365303366" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Lookup Match Output]"
-          TopLeft="993.547577404197,258.192980089704">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="30.6190505194522,91.2543852136627"
-              Start="0,0"
-              End="30.6190505194522,83.7543852136627">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,41.6271926068313" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,41.6271926068313"
-                    Point2="0,45.6271926068313"
-                    Point3="4,45.6271926068313" />
-                  <mssgle:LineSegment
-                    End="26.6190505194522,45.6271926068313" />
-                  <mssgle:CubicBezierSegment
-                    Point1="26.6190505194522,45.6271926068313"
-                    Point2="30.6190505194522,45.6271926068313"
-                    Point3="30.6190505194522,49.6271926068313" />
-                  <mssgle:LineSegment
-                    End="30.6190505194522,83.7543852136627" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-32.8818614590239,50.6271926068313,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="184,42.6666666666667"
-          Id="Package\Data Flow Task\OLE DB Destination 4"
-          TopLeft="66.3333346371849,288.219296129594" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Lookup Match Output1]"
-          TopLeft="371.964272103672,220.774376153792">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-213.630937466487,67.4449199758021"
-              Start="0,0"
-              End="-213.630937466487,59.9449199758021">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,29.7224599879011" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,29.7224599879011"
-                    Point2="0,33.7224599879011"
-                    Point3="-4,33.7224599879011" />
-                  <mssgle:LineSegment
-                    End="-209.630937466487,33.7224599879011" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-209.630937466487,33.7224599879011"
-                    Point2="-213.630937466487,33.7224599879011"
-                    Point3="-213.630937466487,37.7224599879011" />
-                  <mssgle:LineSegment
-                    End="-213.630937466487,59.9449199758021" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-155.006855451994,38.7224599879011,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="165.333333333334,42.6666666666667"
           Id="Package\Data Flow Task\Derived Column 1"
           TopLeft="390.9166494372,256.289472394565" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Multicast Output 6]"
-          TopLeft="542.255928386092,230.821636385168">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-68.6726122822259,25.4678360093976"
-              Start="0,0"
-              End="-68.6726122822259,17.9678360093976">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-64.6726122822259,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-64.6726122822259,0"
-                    Point2="-68.6726122822259,0"
-                    Point3="-68.6726122822259,4" />
-                  <mssgle:LineSegment
-                    End="-68.6726122822259,17.9678360093976" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Derived Column Output1]"
-          TopLeft="390.9166494372,277.622805727899">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="5.33928923069357,39.4912273364548"
-              Start="0,0"
-              End="5.33928923069357,31.9912273364548">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="1.33928923069357,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="1.33928923069357,0"
-                    Point2="5.33928923069357,0"
-                    Point3="5.33928923069357,4" />
-                  <mssgle:LineSegment
-                    End="5.33928923069357,31.9912273364548" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
-          Size="98.6666666666667,42.6666666666667"
-          Id="Package\Data Flow Task\Sort"
-          TopLeft="942.999958090485,443.073098551267" />
+          Size="108,42.6666666666667"
+          Id="Package\Data Flow Task\Sort 2"
+          TopLeft="280.499987706542,484.108249151988" />
+        <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\Data Flow Task\Data Conversion 1"
+          TopLeft="312.255938667893,317.114033064353" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Data Flow Task\Data Conversion"
+          TopLeft="530.380930258051,122.166665715084" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Lookup Match Output2]"
-          TopLeft="850.630924167201,416.078945788293">
+          Id="Package\Data Flow Task.Paths[Sort Output1]"
+          TopLeft="332.666655304532,526.774915818655">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="92.3690339232841,48.3274860963082"
+              EndConnector="0,53.4619199761108"
               Start="0,0"
-              End="84.8690339232841,48.3274860963082">
+              End="0,45.9619199761108">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="42.184516961642,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="42.184516961642,0"
-                    Point2="46.184516961642,0"
-                    Point3="46.184516961642,4" />
-                  <mssgle:LineSegment
-                    End="46.184516961642,44.3274860963082" />
-                  <mssgle:CubicBezierSegment
-                    Point1="46.184516961642,44.3274860963082"
-                    Point2="46.184516961642,48.3274860963082"
-                    Point3="50.184516961642,48.3274860963082" />
-                  <mssgle:LineSegment
-                    End="84.8690339232841,48.3274860963082" />
+                    End="0,45.9619199761108" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-2.00686975710797,-17.609375,96.3827734375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -7497,52 +7326,174 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="108,42.6666666666667"
-          Id="Package\Data Flow Task\Sort 1"
-          TopLeft="558.624975273386,429.897659316214" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Lookup Match Output3]"
-          TopLeft="600.630931021735,355.377191607669">
+          Id="Package\Data Flow Task.Paths[Multicast Output 6]"
+          TopLeft="542.255928386092,230.821636385168">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="11.9940442516514,74.5204677085449"
+              EndConnector="-68.6726122822259,25.4678360093976"
               Start="0,0"
-              End="11.9940442516514,67.0204677085449">
+              End="-68.6726122822259,17.9678360093976">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.2602338542724" />
+                    End="-64.6726122822259,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,33.2602338542724"
-                    Point2="0,37.2602338542724"
-                    Point3="4,37.2602338542724" />
+                    Point1="-64.6726122822259,0"
+                    Point2="-68.6726122822259,0"
+                    Point3="-68.6726122822259,4" />
                   <mssgle:LineSegment
-                    End="7.99404425165142,37.2602338542724" />
+                    End="-68.6726122822259,17.9678360093976" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Multicast Output 5]"
+          TopLeft="621.811483941648,203.710525274057">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="232.569434246462,-24.9298247341907"
+              Start="0,0"
+              End="232.569434246462,-17.4298247341907">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-6.16660965298883" />
                   <mssgle:CubicBezierSegment
-                    Point1="7.99404425165142,37.2602338542724"
-                    Point2="11.9940442516514,37.2602338542724"
-                    Point3="11.9940442516514,41.2602338542724" />
+                    Point1="0,-6.16660965298883"
+                    Point2="0,-10.1666096529888"
+                    Point3="4,-10.1666096529888" />
                   <mssgle:LineSegment
-                    End="11.9940442516514,67.0204677085449" />
+                    End="228.569434246462,-10.1666096529888" />
+                  <mssgle:CubicBezierSegment
+                    Point1="228.569434246462,-10.1666096529888"
+                    Point2="232.569434246462,-10.1666096529888"
+                    Point3="232.569434246462,-14.1666096529888" />
+                  <mssgle:LineSegment
+                    End="232.569434246462,-17.4298247341907" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Multicast Output 3]"
+          TopLeft="631.255928386092,246.377191940723">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="157.749995138497,65.4561398224983"
+              Start="0,0"
+              End="157.749995138497,57.9561398224983">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.7571525547754" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.7571525547754"
+                    Point2="0,22.7571525547754"
+                    Point3="4,22.7571525547754" />
+                  <mssgle:LineSegment
+                    End="153.749995138497,22.7571525547754" />
+                  <mssgle:CubicBezierSegment
+                    Point1="153.749995138497,22.7571525547754"
+                    Point2="157.749995138497,22.7571525547754"
+                    Point3="157.749995138497,26.7571525547754" />
+                  <mssgle:LineSegment
+                    End="157.749995138497,57.9561398224983" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Multicast Output 2]"
+          TopLeft="542.255928386092,225.04385860739">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-108.29165628242,-25.6028157869312"
+              Start="0,0"
+              End="-100.79165628242,-25.6028157869312">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-50.1458281412101,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-50.1458281412101,0"
+                    Point2="-54.1458281412101,0"
+                    Point3="-54.1458281412101,-4" />
+                  <mssgle:LineSegment
+                    End="-54.1458281412101,-21.6028157869312" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-54.1458281412101,-21.6028157869312"
+                    Point2="-54.1458281412101,-25.6028157869312"
+                    Point3="-58.1458281412101,-25.6028157869312" />
+                  <mssgle:LineSegment
+                    End="-100.79165628242,-25.6028157869312" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup Match Output3]"
+          TopLeft="371.964272103672,220.774376153792">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-213.630937466487,67.4449199758021"
+              Start="0,0"
+              End="-213.630937466487,59.9449199758021">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.7224599879011" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.7224599879011"
+                    Point2="0,33.7224599879011"
+                    Point3="-4,33.7224599879011" />
+                  <mssgle:LineSegment
+                    End="-209.630937466487,33.7224599879011" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-209.630937466487,33.7224599879011"
+                    Point2="-213.630937466487,33.7224599879011"
+                    Point3="-213.630937466487,37.7224599879011" />
+                  <mssgle:LineSegment
+                    End="-213.630937466487,59.9449199758021" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-42.1943645929243,42.2602338542724,96.3827734375,11.609375"
+              BoundingBox="-155.006855451994,38.7224599879011,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="108,42.6666666666667"
-          Id="Package\Data Flow Task\Sort 2"
-          TopLeft="280.499987706542,484.108249151988" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Lookup Match Output4]"
+          Id="Package\Data Flow Task.Paths[Lookup Match Output2]"
           TopLeft="390.089271293421,448.868419039282">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -7573,70 +7524,82 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-75.9860285121895,22.6199150563529,96.3827734375,11.609375"
+              BoundingBox="-84.8546808559394,22.6199150563529,114.120078125,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Sort Output1]"
-          TopLeft="332.666655304532,526.774915818655">
+          Id="Package\Data Flow Task.Paths[Lookup Match Output1]"
+          TopLeft="850.630924167201,416.078945788293">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,53.4619199761108"
+              EndConnector="92.3690339232841,48.3274860963082"
               Start="0,0"
-              End="0,45.9619199761108">
+              End="84.8690339232841,48.3274860963082">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,45.9619199761108" />
+                    End="42.184516961642,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="42.184516961642,0"
+                    Point2="46.184516961642,0"
+                    Point3="46.184516961642,4" />
+                  <mssgle:LineSegment
+                    End="46.184516961642,44.3274860963082" />
+                  <mssgle:CubicBezierSegment
+                    Point1="46.184516961642,44.3274860963082"
+                    Point2="46.184516961642,48.3274860963082"
+                    Point3="50.184516961642,48.3274860963082" />
+                  <mssgle:LineSegment
+                    End="84.8690339232841,48.3274860963082" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-10.875522100858,-22,114.120078125,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Sort Output2]"
-          TopLeft="612.624975273386,472.564325982881">
+          Id="Package\Data Flow Task.Paths[Lookup Match Output]"
+          TopLeft="993.547577404197,258.192980089704">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-14.5754909522416,68.5302152763674"
+              EndConnector="30.6190505194522,91.2543852136627"
               Start="0,0"
-              End="-14.5754909522416,61.0302152763674">
+              End="30.6190505194522,83.7543852136627">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.2651076381837" />
+                    End="0,41.6271926068313" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,30.2651076381837"
-                    Point2="0,34.2651076381837"
-                    Point3="-4,34.2651076381837" />
+                    Point1="0,41.6271926068313"
+                    Point2="0,45.6271926068313"
+                    Point3="4,45.6271926068313" />
                   <mssgle:LineSegment
-                    End="-10.5754909522416,34.2651076381837" />
+                    End="26.6190505194522,45.6271926068313" />
                   <mssgle:CubicBezierSegment
-                    Point1="-10.5754909522416,34.2651076381837"
-                    Point2="-14.5754909522416,34.2651076381837"
-                    Point3="-14.5754909522416,38.2651076381837" />
+                    Point1="26.6190505194522,45.6271926068313"
+                    Point2="30.6190505194522,45.6271926068313"
+                    Point3="30.6190505194522,49.6271926068313" />
                   <mssgle:LineSegment
-                    End="-14.5754909522416,61.0302152763674" />
+                    End="30.6190505194522,83.7543852136627" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-32.8818614590239,50.6271926068313,96.3827734375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="165.333333333334,42.6666666666667"
-          Id="Package\Data Flow Task\Derived Column 2"
-          TopLeft="254.458322204029,37.3692737715725" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Flat File Source Output]"
           TopLeft="529.964264951115,55.6627072490372">
@@ -7693,6 +7656,266 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output1]"
+          TopLeft="390.9166494372,277.622805727899">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="5.33928923069357,39.4912273364548"
+              Start="0,0"
+              End="5.33928923069357,31.9912273364548">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="1.33928923069357,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="1.33928923069357,0"
+                    Point2="5.33928923069357,0"
+                    Point3="5.33928923069357,4" />
+                  <mssgle:LineSegment
+                    End="5.33928923069357,31.9912273364548" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output]"
+          TopLeft="788.818423845895,354.499998429888">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.2456140250711"
+              Start="0,0"
+              End="0,32.7456140250711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.7456140250711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Data Conversion Output2]"
+          TopLeft="881.047584854776,178.780700539866">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="112.49999254942,36.7456128831714"
+              Start="0,0"
+              End="112.49999254942,29.2456128831714">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.9062391884563" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.9062391884563"
+                    Point2="0,14.9062391884563"
+                    Point3="4,14.9062391884563" />
+                  <mssgle:LineSegment
+                    End="108.49999254942,14.9062391884563" />
+                  <mssgle:CubicBezierSegment
+                    Point1="108.49999254942,14.9062391884563"
+                    Point2="112.49999254942,14.9062391884563"
+                    Point3="112.49999254942,18.9062391884563" />
+                  <mssgle:LineSegment
+                    End="112.49999254942,29.2456128831714" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Data Conversion Output1]"
+          TopLeft="393.172604980657,359.78069973102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.4210526415957"
+              Start="0,0"
+              End="0,38.9210526415957">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.9210526415957" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
+          TopLeft="606.318429322071,164.83333238175">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.8771928923062"
+              Start="0,0"
+              End="0,31.3771928923062">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.3771928923062" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Multicast Output 1]"
+          TopLeft="584.03370616387,246.377191940724">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.5972248578656,66.3333330002783"
+              Start="0,0"
+              End="16.5972248578656,58.8333330002783">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.0513375359053" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.0513375359053"
+                    Point2="0,27.0513375359053"
+                    Point3="4,27.0513375359053" />
+                  <mssgle:LineSegment
+                    End="12.5972248578656,27.0513375359053" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.5972248578656,27.0513375359053"
+                    Point2="16.5972248578656,27.0513375359053"
+                    Point3="16.5972248578656,31.0513375359053" />
+                  <mssgle:LineSegment
+                    End="16.5972248578656,58.8333330002783" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Lookup Match Output4]"
+          TopLeft="596.766027166399,355.377191607669">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.0902096814199"
+              Start="0,0"
+              End="0,29.5902096814199">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5902096814199" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,8.99041734070994,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="108,42.6666666666667"
+          Id="Package\Data Flow Task\Sort 1"
+          TopLeft="513.535691574749,477.931073594559" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Derived Column Output3]"
+          TopLeft="592.901123311062,435.134067955755">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-25.3654317363137,42.7970056388037"
+              Start="0,0"
+              End="-25.3654317363137,35.2970056388037">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.3985028194018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.3985028194018"
+                    Point2="0,21.3985028194018"
+                    Point3="-4,21.3985028194018" />
+                  <mssgle:LineSegment
+                    End="-21.3654317363137,21.3985028194018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21.3654317363137,21.3985028194018"
+                    Point2="-25.3654317363137,21.3985028194018"
+                    Point3="-25.3654317363137,25.3985028194018" />
+                  <mssgle:LineSegment
+                    End="-25.3654317363137,35.2970056388037" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-20.6827158681568,26.3985028194018,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Sort Output2]"
+          TopLeft="567.535691574749,520.597740261226">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.97807937869959,60.5719885279294"
+              Start="0,0"
+              End="9.97807937869959,53.0719885279294">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.2859942639647" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.2859942639647"
+                    Point2="0,30.2859942639647"
+                    Point3="4,30.2859942639647" />
+                  <mssgle:LineSegment
+                    End="5.97807937869959,30.2859942639647" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.97807937869959,30.2859942639647"
+                    Point2="9.97807937869959,30.2859942639647"
+                    Point3="9.97807937869959,34.2859942639647" />
+                  <mssgle:LineSegment
+                    End="9.97807937869959,53.0719885279294" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -7720,71 +7943,15 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Lookup 1">
+    design-time-name="Package\Data Flow Task\OLE DB Destination 1">
     <Properties>
       <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimLocation]</Value>
+        <Name>DataSourceViewID</Name>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Lookup 2">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimDate]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\Lookup 3">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimJobType]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -7794,7 +7961,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -7804,7 +7971,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7825,15 +7992,25 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\OLE DB Destination 1">
+    design-time-name="Package\Data Flow Task\Lookup 1">
     <Properties>
       <Property>
-        <Name>DataSourceViewID</Name>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimLocation]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q2:string">Table</Value>
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -7851,7 +8028,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\OLE DB Destination 3">
+    design-time-name="Package\Data Flow Task\OLE DB Destination 4">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7864,7 +8041,53 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\OLE DB Destination 4">
+    design-time-name="Package\Data Flow Task\Lookup 2">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimDate]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Lookup 3">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimJobType]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\OLE DB Destination 3">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
