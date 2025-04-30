@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DimLocation"
   DTS:PackageType="5"
-  DTS:VersionBuild="23"
-  DTS:VersionGUID="{D8DACB5D-0CE5-47C1-9A36-C5D3EA8E97EC}">
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{43326BC0-C55D-4C93-8774-2BB7C390EA86}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
