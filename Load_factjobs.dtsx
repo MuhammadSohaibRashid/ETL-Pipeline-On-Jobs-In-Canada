@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Load_factjobs"
   DTS:PackageType="5"
-  DTS:VersionBuild="115"
-  DTS:VersionGUID="{115C8D28-1218-49E9-A250-C786EF61B11F}">
+  DTS:VersionBuild="116"
+  DTS:VersionGUID="{1B53E5E2-9050-474B-A541-D7E5DAD91223}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1251,6 +1251,179 @@
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager 7]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{324ECD6C-15A4-46B0-8CCE-44CAB662BA6F}"
+      DTS:ObjectName="Flat File Connection Manager 7">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="D:\Sohaib\Data Analyst\LinkedIn Data\cleaned_analyst_jobs_ssis_ready.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job ID"
+              DTS:DTSID="{FE51A995-AEE5-42C2-A50F-32015DD4D514}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Title"
+              DTS:DTSID="{6D7D8364-B72B-4AE1-9959-DBB10299D400}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Company"
+              DTS:DTSID="{F4D82B31-9C0E-401E-B607-3A183D9A15FC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Location"
+              DTS:DTSID="{6C0C9880-D0A0-4098-B6D1-969520396D86}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Remote Type"
+              DTS:DTSID="{1E8E542B-1F97-4532-B979-24BCBE58BCAF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Date Posted"
+              DTS:DTSID="{F8D53E6C-4415-4CE1-8B69-E07C223EF0C4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Company Size"
+              DTS:DTSID="{27E884B8-F134-4F8F-BCB4-1628BAB17FC1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Industry"
+              DTS:DTSID="{615418D6-06DD-4BCE-BA4E-B124747193D1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Employment Type"
+              DTS:DTSID="{D41CED5F-E75E-4A6B-91F9-6D3779B840D3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Experience Required"
+              DTS:DTSID="{1F11F5BE-A4BE-4F47-952D-2CB1891A9CC3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Salary Range"
+              DTS:DTSID="{EDF01B49-9ACA-461A-BFFB-8479363DD6D6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Required Skills"
+              DTS:DTSID="{0B331B0F-E1E9-453F-A98D-0051C5251355}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Qualifications"
+              DTS:DTSID="{13A06A7C-A2EE-49CA-BCC3-BB799E5D9EC7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Job Description"
+              DTS:DTSID="{AE21B8A6-C916-48A9-BA84-2BFEFDCEBA25}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Application Link"
+              DTS:DTSID="{8181C639-5B4E-42E5-A069-6C920970CCE1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Company Rating"
+              DTS:DTSID="{C6A7688B-F8BF-4BB1-A342-869600A8C8D3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Avg Salary"
+              DTS:DTSID="{AAB3ECA1-9B45-41F4-B544-AC97F0E64751}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
@@ -2134,8 +2307,8 @@
               <connections>
                 <connection
                   refId="Package\Data Flow Task\Flat File Source.Connections[FlatFileConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager 6]"
-                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager 6]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager 7]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager 7]"
                   name="FlatFileConnection" />
               </connections>
               <outputs>
@@ -2568,13 +2741,13 @@
                       refId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Required Skills]"
                       codePage="1252"
                       dataType="str"
-                      length="4000"
+                      length="50"
                       name="Required Skills" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Qualifications]"
                       codePage="1252"
                       dataType="str"
-                      length="1000"
+                      length="50"
                       name="Qualifications" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Job Description]"
@@ -7029,14 +7202,14 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               startId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output4]"
-              endId="Package\Data Flow Task\Sort 2.Inputs[Sort Input]"
+              endId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 2.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output3]"
-              endId="Package\Data Flow Task\OLE DB Destination 3.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\OLE DB Destination 4.Inputs[OLE DB Destination Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 3.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup 4.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output2]"
               endId="Package\Data Flow Task\Sort.Inputs[Sort Input]"
@@ -7044,14 +7217,14 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               startId="Package\Data Flow Task\Lookup 1.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output1]"
-              endId="Package\Data Flow Task\OLE DB Destination 4.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\OLE DB Destination 3.Inputs[OLE DB Destination Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 4.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup 3.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output]"
-              endId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]"
+              endId="Package\Data Flow Task\Sort 2.Inputs[Sort Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup 2.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Multicast Output 1]"
               endId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]"
@@ -7412,73 +7585,61 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output4]"
-          TopLeft="390.089271293421,448.868419039282">
+          TopLeft="596.766027166399,355.377191607669">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-55.5892835868789,35.2398301127059"
+              EndConnector="0,37.0902096814199"
               Start="0,0"
-              End="-55.5892835868789,27.7398301127059">
+              End="0,29.5902096814199">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.6199150563529" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,13.6199150563529"
-                    Point2="0,17.6199150563529"
-                    Point3="-4,17.6199150563529" />
-                  <mssgle:LineSegment
-                    End="-51.5892835868789,17.6199150563529" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-51.5892835868789,17.6199150563529"
-                    Point2="-55.5892835868789,17.6199150563529"
-                    Point3="-55.5892835868789,21.6199150563529" />
-                  <mssgle:LineSegment
-                    End="-55.5892835868789,27.7398301127059" />
+                    End="0,29.5902096814199" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-84.8546808559394,22.6199150563529,114.120078125,16"
+              BoundingBox="-48.19138671875,8.99041734070994,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output3]"
-          TopLeft="993.547577404197,258.192980089704">
+          TopLeft="371.964272103672,220.774376153792">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="30.6190505194522,91.2543852136627"
+              EndConnector="-213.630937466487,67.4449199758021"
               Start="0,0"
-              End="30.6190505194522,83.7543852136627">
+              End="-213.630937466487,59.9449199758021">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,41.6271926068313" />
+                    End="0,29.7224599879011" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,41.6271926068313"
-                    Point2="0,45.6271926068313"
-                    Point3="4,45.6271926068313" />
+                    Point1="0,29.7224599879011"
+                    Point2="0,33.7224599879011"
+                    Point3="-4,33.7224599879011" />
                   <mssgle:LineSegment
-                    End="26.6190505194522,45.6271926068313" />
+                    End="-209.630937466487,33.7224599879011" />
                   <mssgle:CubicBezierSegment
-                    Point1="26.6190505194522,45.6271926068313"
-                    Point2="30.6190505194522,45.6271926068313"
-                    Point3="30.6190505194522,49.6271926068313" />
+                    Point1="-209.630937466487,33.7224599879011"
+                    Point2="-213.630937466487,33.7224599879011"
+                    Point3="-213.630937466487,37.7224599879011" />
                   <mssgle:LineSegment
-                    End="30.6190505194522,83.7543852136627" />
+                    End="-213.630937466487,59.9449199758021" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-32.8818614590239,50.6271926068313,96.3827734375,11.609375"
+              BoundingBox="-155.006855451994,38.7224599879011,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -7520,61 +7681,73 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output1]"
-          TopLeft="371.964272103672,220.774376153792">
+          TopLeft="993.547577404197,258.192980089704">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-213.630937466487,67.4449199758021"
+              EndConnector="30.6190505194522,91.2543852136627"
               Start="0,0"
-              End="-213.630937466487,59.9449199758021">
+              End="30.6190505194522,83.7543852136627">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.7224599879011" />
+                    End="0,41.6271926068313" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,29.7224599879011"
-                    Point2="0,33.7224599879011"
-                    Point3="-4,33.7224599879011" />
+                    Point1="0,41.6271926068313"
+                    Point2="0,45.6271926068313"
+                    Point3="4,45.6271926068313" />
                   <mssgle:LineSegment
-                    End="-209.630937466487,33.7224599879011" />
+                    End="26.6190505194522,45.6271926068313" />
                   <mssgle:CubicBezierSegment
-                    Point1="-209.630937466487,33.7224599879011"
-                    Point2="-213.630937466487,33.7224599879011"
-                    Point3="-213.630937466487,37.7224599879011" />
+                    Point1="26.6190505194522,45.6271926068313"
+                    Point2="30.6190505194522,45.6271926068313"
+                    Point3="30.6190505194522,49.6271926068313" />
                   <mssgle:LineSegment
-                    End="-213.630937466487,59.9449199758021" />
+                    End="30.6190505194522,83.7543852136627" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-155.006855451994,38.7224599879011,96.3827734375,11.609375"
+              BoundingBox="-32.8818614590239,50.6271926068313,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output]"
-          TopLeft="596.766027166399,355.377191607669">
+          TopLeft="390.089271293421,448.868419039282">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,37.0902096814199"
+              EndConnector="-55.5892835868789,35.2398301127059"
               Start="0,0"
-              End="0,29.5902096814199">
+              End="-55.5892835868789,27.7398301127059">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.5902096814199" />
+                    End="0,13.6199150563529" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.6199150563529"
+                    Point2="0,17.6199150563529"
+                    Point3="-4,17.6199150563529" />
+                  <mssgle:LineSegment
+                    End="-51.5892835868789,17.6199150563529" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-51.5892835868789,17.6199150563529"
+                    Point2="-55.5892835868789,17.6199150563529"
+                    Point3="-55.5892835868789,21.6199150563529" />
+                  <mssgle:LineSegment
+                    End="-55.5892835868789,27.7398301127059" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,8.99041734070994,96.3827734375,11.609375"
+              BoundingBox="-84.8546808559394,22.6199150563529,114.120078125,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
