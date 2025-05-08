@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Load_factjobs"
   DTS:PackageType="5"
-  DTS:VersionBuild="118"
-  DTS:VersionGUID="{3C2EC648-AC5D-4945-A0F6-1E8ED17157CA}">
+  DTS:VersionBuild="119"
+  DTS:VersionGUID="{5D0621EE-AAA1-4B3A-AED4-B3B11C5C0C42}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2313,7 +2313,7 @@
                       refId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output].Columns[Derived Column 1]"
                       dataType="i4"
                       errorOrTruncationOperation="Computation"
-                      errorRowDisposition="RedirectRow"
+                      errorRowDisposition="FailComponent"
                       lineageId="Package\Data Flow Task\Derived Column 2.Outputs[Derived Column Output].Columns[Derived Column 1]"
                       name="Derived Column 1"
                       truncationRowDisposition="FailComponent">
@@ -2402,7 +2402,7 @@
                       cachedDataType="i4"
                       cachedName="CompanyID"
                       errorOrTruncationOperation="Computation"
-                      errorRowDisposition="RedirectRow"
+                      errorRowDisposition="FailComponent"
                       lineageId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output].Columns[CompanyID]"
                       truncationRowDisposition="FailComponent"
                       usageType="readWrite">
