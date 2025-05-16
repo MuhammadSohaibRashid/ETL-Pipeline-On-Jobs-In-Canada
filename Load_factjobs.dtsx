@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Load_factjobs"
   DTS:PackageType="5"
-  DTS:VersionBuild="119"
-  DTS:VersionGUID="{5D0621EE-AAA1-4B3A-AED4-B3B11C5C0C42}">
+  DTS:VersionBuild="120"
+  DTS:VersionGUID="{8CD71432-7B30-47CC-BCE8-3A1B1A2428E9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2714,7 +2714,7 @@
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="RedirectRow"
+                      errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Required Skills]"
                       length="50"
                       lineageId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Required Skills]"
@@ -2736,7 +2736,7 @@
                       codePage="1252"
                       dataType="str"
                       errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="RedirectRow"
+                      errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Qualifications]"
                       length="50"
                       lineageId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output].Columns[Qualifications]"
@@ -7375,14 +7375,14 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               startId="Package\Data Flow Task\Flat File Source.Outputs[Flat File Source Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output4]"
-              endId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]"
+              endId="Package\Data Flow Task\Sort 2.Inputs[Sort Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup 2.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output3]"
-              endId="Package\Data Flow Task\OLE DB Destination 4.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\OLE DB Destination 3.Inputs[OLE DB Destination Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 4.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup 3.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output2]"
               endId="Package\Data Flow Task\Sort.Inputs[Sort Input]"
@@ -7390,14 +7390,14 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
               startId="Package\Data Flow Task\Lookup 1.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output1]"
-              endId="Package\Data Flow Task\OLE DB Destination 3.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\OLE DB Destination 4.Inputs[OLE DB Destination Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 3.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup 4.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Lookup Match Output]"
-              endId="Package\Data Flow Task\Sort 2.Inputs[Sort Input]"
+              endId="Package\Data Flow Task\Derived Column 3.Inputs[Derived Column Input]"
               name="Lookup Match Output"
-              startId="Package\Data Flow Task\Lookup 2.Outputs[Lookup Match Output]" />
+              startId="Package\Data Flow Task\Lookup.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Data Flow Task.Paths[Multicast Output 1]"
               endId="Package\Data Flow Task\Lookup.Inputs[Lookup Input]"
@@ -7758,61 +7758,73 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output4]"
-          TopLeft="596.766027166399,355.377191607669">
+          TopLeft="390.089271293421,448.868419039282">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,37.0902096814199"
+              EndConnector="-55.5892835868789,35.2398301127059"
               Start="0,0"
-              End="0,29.5902096814199">
+              End="-55.5892835868789,27.7398301127059">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.5902096814199" />
+                    End="0,13.6199150563529" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.6199150563529"
+                    Point2="0,17.6199150563529"
+                    Point3="-4,17.6199150563529" />
+                  <mssgle:LineSegment
+                    End="-51.5892835868789,17.6199150563529" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-51.5892835868789,17.6199150563529"
+                    Point2="-55.5892835868789,17.6199150563529"
+                    Point3="-55.5892835868789,21.6199150563529" />
+                  <mssgle:LineSegment
+                    End="-55.5892835868789,27.7398301127059" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,8.99041734070994,96.3827734375,11.609375"
+              BoundingBox="-84.8546808559394,22.6199150563529,114.120078125,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output3]"
-          TopLeft="371.964272103672,220.774376153792">
+          TopLeft="993.547577404197,258.192980089704">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-213.630937466487,67.4449199758021"
+              EndConnector="30.6190505194522,91.2543852136627"
               Start="0,0"
-              End="-213.630937466487,59.9449199758021">
+              End="30.6190505194522,83.7543852136627">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.7224599879011" />
+                    End="0,41.6271926068313" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,29.7224599879011"
-                    Point2="0,33.7224599879011"
-                    Point3="-4,33.7224599879011" />
+                    Point1="0,41.6271926068313"
+                    Point2="0,45.6271926068313"
+                    Point3="4,45.6271926068313" />
                   <mssgle:LineSegment
-                    End="-209.630937466487,33.7224599879011" />
+                    End="26.6190505194522,45.6271926068313" />
                   <mssgle:CubicBezierSegment
-                    Point1="-209.630937466487,33.7224599879011"
-                    Point2="-213.630937466487,33.7224599879011"
-                    Point3="-213.630937466487,37.7224599879011" />
+                    Point1="26.6190505194522,45.6271926068313"
+                    Point2="30.6190505194522,45.6271926068313"
+                    Point3="30.6190505194522,49.6271926068313" />
                   <mssgle:LineSegment
-                    End="-213.630937466487,59.9449199758021" />
+                    End="30.6190505194522,83.7543852136627" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-155.006855451994,38.7224599879011,96.3827734375,11.609375"
+              BoundingBox="-32.8818614590239,50.6271926068313,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -7854,73 +7866,61 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output1]"
-          TopLeft="993.547577404197,258.192980089704">
+          TopLeft="371.964272103672,220.774376153792">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="30.6190505194522,91.2543852136627"
+              EndConnector="-213.630937466487,67.4449199758021"
               Start="0,0"
-              End="30.6190505194522,83.7543852136627">
+              End="-213.630937466487,59.9449199758021">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,41.6271926068313" />
+                    End="0,29.7224599879011" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,41.6271926068313"
-                    Point2="0,45.6271926068313"
-                    Point3="4,45.6271926068313" />
+                    Point1="0,29.7224599879011"
+                    Point2="0,33.7224599879011"
+                    Point3="-4,33.7224599879011" />
                   <mssgle:LineSegment
-                    End="26.6190505194522,45.6271926068313" />
+                    End="-209.630937466487,33.7224599879011" />
                   <mssgle:CubicBezierSegment
-                    Point1="26.6190505194522,45.6271926068313"
-                    Point2="30.6190505194522,45.6271926068313"
-                    Point3="30.6190505194522,49.6271926068313" />
+                    Point1="-209.630937466487,33.7224599879011"
+                    Point2="-213.630937466487,33.7224599879011"
+                    Point3="-213.630937466487,37.7224599879011" />
                   <mssgle:LineSegment
-                    End="30.6190505194522,83.7543852136627" />
+                    End="-213.630937466487,59.9449199758021" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-32.8818614590239,50.6271926068313,96.3827734375,11.609375"
+              BoundingBox="-155.006855451994,38.7224599879011,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output]"
-          TopLeft="390.089271293421,448.868419039282">
+          TopLeft="596.766027166399,355.377191607669">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-55.5892835868789,35.2398301127059"
+              EndConnector="0,37.0902096814199"
               Start="0,0"
-              End="-55.5892835868789,27.7398301127059">
+              End="0,29.5902096814199">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.6199150563529" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,13.6199150563529"
-                    Point2="0,17.6199150563529"
-                    Point3="-4,17.6199150563529" />
-                  <mssgle:LineSegment
-                    End="-51.5892835868789,17.6199150563529" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-51.5892835868789,17.6199150563529"
-                    Point2="-55.5892835868789,17.6199150563529"
-                    Point3="-55.5892835868789,21.6199150563529" />
-                  <mssgle:LineSegment
-                    End="-55.5892835868789,27.7398301127059" />
+                    End="0,29.5902096814199" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-84.8546808559394,22.6199150563529,114.120078125,16"
+              BoundingBox="-48.19138671875,8.99041734070994,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -8415,7 +8415,7 @@ where [refTable].[Qualifications] = ? and [refTable].[RequiredSkills] = ?</prope
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
