@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Final"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{1F82E956-D809-44FC-AFCD-39F676B62974}">
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{394A8209-3EFF-4EEF-B694-FD3E4D596C43}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -359,10 +359,10 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="452,335.333333333334"
+          PanelSize="452,334.666666666667"
           Size="452,378"
           Id="Package\Load Dimension"
-          TopLeft="109.5,53.5" />
+          TopLeft="297.781241583173,47.5131579604712" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
